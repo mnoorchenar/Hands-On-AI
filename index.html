@@ -1,285 +1,590 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Materials Viewer</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23dc2626'/></svg>">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Materials Viewer</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23667eea'/></svg>">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            height: 100vh;
-            overflow: hidden;
-            background: #f5f7fa;
-        }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  height: 100vh; overflow: hidden; background: #f5f7fa;
+}
 
-        .container { display: flex; height: 100vh; }
+/* ═══════════════════════════════════════════
+   SEARCH HOME PAGE
+═══════════════════════════════════════════ */
+#searchPage {
+  position: fixed; inset: 0; z-index: 200;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  transition: opacity 0.4s, transform 0.4s;
+}
+#searchPage.hidden {
+  opacity: 0; pointer-events: none; transform: translateY(-20px);
+}
 
-        /* ── Sidebar ── */
-        .sidebar {
-            width: 300px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            transition: margin-left 0.3s ease;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.15);
-            flex-shrink: 0;
-        }
-        .sidebar.hidden { margin-left: -300px; }
+.search-logo {
+  font-size: 3.5em; margin-bottom: 10px;
+}
+.search-title {
+  font-size: 2.4em; font-weight: 700; color: white;
+  margin-bottom: 6px; letter-spacing: -0.5px;
+}
+.search-subtitle {
+  font-size: 1em; color: rgba(255,255,255,0.75);
+  margin-bottom: 40px;
+}
 
-        .sidebar-header {
-            padding: 20px;
-            background: rgba(0,0,0,0.2);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .sidebar-header h1 { font-size: 1.4em; margin-bottom: 4px; }
-        .sidebar-header p  { font-size: 0.85em; opacity: 0.85; }
+.search-box-wrap {
+  position: relative; width: min(600px, 90vw);
+}
+.search-box-wrap input {
+  width: 100%; padding: 18px 54px 18px 22px;
+  border: none; border-radius: 50px;
+  font-size: 1.05em; outline: none;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  background: white; color: #2d3748;
+}
+.search-box-wrap input::placeholder { color: #a0aec0; }
+.search-icon {
+  position: absolute; right: 18px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2em; color: #667eea; pointer-events: none;
+}
+.search-clear {
+  position: absolute; right: 46px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 1em; color: #a0aec0; cursor: pointer;
+  display: none; background: none; border: none; padding: 4px;
+}
+.search-clear:hover { color: #667eea; }
 
-        .sidebar-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 12px;
-        }
+/* results dropdown */
+#searchResults {
+  position: absolute; top: calc(100% + 10px); left: 0; right: 0;
+  background: white; border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+  max-height: 55vh; overflow-y: auto;
+  display: none; z-index: 10;
+}
+#searchResults.visible { display: block; }
 
-        /* ── Nav rows ── */
-        .nav-folder   { margin-bottom: 10px; }
+.result-group-label {
+  padding: 10px 18px 4px;
+  font-size: 0.72em; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  color: #a0aec0;
+}
+.result-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 18px; cursor: pointer;
+  transition: background 0.15s;
+  border-radius: 8px; margin: 0 4px;
+}
+.result-item:hover { background: #f0f4ff; }
+.result-item .ri-icon { font-size: 1.1em; flex-shrink: 0; }
+.result-item .ri-info { flex: 1; min-width: 0; }
+.result-item .ri-name {
+  font-size: 0.95em; font-weight: 600; color: #2d3748;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.result-item .ri-path {
+  font-size: 0.78em; color: #a0aec0; margin-top: 1px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.result-item mark {
+  background: #eef2ff; color: #667eea; border-radius: 2px; padding: 0 2px;
+}
+.no-results {
+  padding: 24px; text-align: center; color: #a0aec0; font-size: 0.95em;
+}
 
-        .nav-folder-title, .nav-sub-title {
-            padding: 10px 14px;
-            border-radius: 7px;
-            cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.2s;
-            user-select: none;
-        }
-        .nav-folder-title {
-            background: rgba(255,255,255,0.15);
-            font-size: 0.97em;
-        }
-        .nav-folder-title:hover { background: rgba(255,255,255,0.25); }
+.search-hint {
+  margin-top: 28px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+}
+.hint-chip {
+  background: rgba(255,255,255,0.18); color: white;
+  padding: 7px 18px; border-radius: 50px; font-size: 0.85em;
+  cursor: pointer; transition: background 0.2s;
+  border: 1px solid rgba(255,255,255,0.25);
+}
+.hint-chip:hover { background: rgba(255,255,255,0.3); }
 
-        .nav-sub-title {
-            background: rgba(255,255,255,0.09);
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-        .nav-sub-title:hover { background: rgba(255,255,255,0.18); }
+/* ═══════════════════════════════════════════
+   MAIN VIEWER (same layout as before)
+═══════════════════════════════════════════ */
+.app { display: flex; height: 100vh; }
 
-        .arrow {
-            margin-left: auto;
-            font-size: 0.75em;
-            transition: transform 0.25s;
-        }
-        .collapsed .arrow { transform: rotate(-90deg); }
+.sidebar {
+  width: 300px; flex-shrink: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white; display: flex; flex-direction: column;
+  transition: margin-left 0.3s; box-shadow: 2px 0 10px rgba(0,0,0,0.15);
+}
+.sidebar.hidden { margin-left: -300px; }
 
-        .nav-children, .nav-files {
-            margin-top: 5px;
-            margin-left: 14px;
-            display: none;
-        }
-        .nav-children.open, .nav-files.open { display: block; }
+.sidebar-header {
+  padding: 18px 20px;
+  background: rgba(0,0,0,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; gap: 10px;
+}
+.sidebar-header h1 { font-size: 1.2em; flex: 1; }
 
-        .nav-file {
-            padding: 6px 10px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 4px;
-            margin-bottom: 3px;
-            cursor: pointer;
-            font-size: 0.88em;
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            transition: background 0.2s, transform 0.15s;
-        }
-        .nav-file:hover  { background: rgba(255,255,255,0.15); transform: translateX(3px); }
-        .nav-file.active { background: rgba(255,255,255,0.3); font-weight: 600; }
-        .nav-file .file-name { flex: 1; }
+/* mini search inside sidebar header */
+.sidebar-search {
+  position: relative; padding: 10px 12px;
+  background: rgba(0,0,0,0.15);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-search input {
+  width: 100%; padding: 8px 32px 8px 12px;
+  border: none; border-radius: 20px;
+  font-size: 0.85em; background: rgba(255,255,255,0.15);
+  color: white; outline: none;
+}
+.sidebar-search input::placeholder { color: rgba(255,255,255,0.55); }
+.sidebar-search .ss-icon {
+  position: absolute; right: 22px; top: 50%; transform: translateY(-50%);
+  font-size: 0.85em; opacity: 0.7; pointer-events: none;
+}
 
-        /* ── Main ── */
-        .main-content { flex: 1; display: flex; flex-direction: column; position: relative; min-width: 0; }
+.sidebar-content { flex: 1; overflow-y: auto; padding: 10px; }
 
-        .toggle-btn {
-            position: absolute;
-            top: 16px; left: 16px;
-            z-index: 100;
-            padding: 10px 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1em;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            transition: all 0.25s;
-        }
-        .toggle-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.2); }
+/* nav tree */
+.nav-folder { margin-bottom: 8px; }
+.nav-folder-title, .nav-sub-title {
+  padding: 9px 13px; border-radius: 7px; cursor: pointer;
+  font-weight: 600; display: flex; align-items: center; gap: 7px;
+  transition: background 0.2s; user-select: none;
+}
+.nav-folder-title { background: rgba(255,255,255,0.15); font-size: 0.95em; }
+.nav-folder-title:hover { background: rgba(255,255,255,0.25); }
+.nav-sub-title { background: rgba(255,255,255,0.09); font-size: 0.88em; margin-top: 4px; }
+.nav-sub-title:hover { background: rgba(255,255,255,0.18); }
+.arrow { margin-left: auto; font-size: 0.72em; transition: transform 0.25s; }
+.collapsed .arrow { transform: rotate(-90deg); }
+.nav-children, .nav-files { margin-top: 4px; margin-left: 12px; display: none; }
+.nav-children.open, .nav-files.open { display: block; }
+.nav-file {
+  padding: 6px 10px; background: rgba(255,255,255,0.05);
+  border-radius: 4px; margin-bottom: 3px; cursor: pointer;
+  font-size: 0.86em; display: flex; align-items: center; gap: 6px;
+  transition: background 0.15s, transform 0.12s;
+}
+.nav-file:hover  { background: rgba(255,255,255,0.15); transform: translateX(3px); }
+.nav-file.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.nav-file .file-name { flex: 1; }
 
-        .welcome-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
-            text-align: center;
-            padding: 40px;
-        }
-        .welcome-screen .icon-large { font-size: 5em; margin-bottom: 20px; opacity: 0.25; }
-        .welcome-screen h2 { font-size: 2.2em; color: #2d3748; margin-bottom: 10px; }
-        .welcome-screen p  { font-size: 1.1em; color: #718096; }
+.main-content { flex: 1; display: flex; flex-direction: column; position: relative; min-width: 0; }
 
-        .content-frame { width: 100%; height: 100%; border: none; background: white; }
+/* top bar inside viewer */
+.viewer-topbar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px;
+  background: white; border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06); z-index: 10;
+  flex-shrink: 0;
+}
+.toggle-btn {
+  padding: 8px 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white; border: none; border-radius: 7px; cursor: pointer;
+  font-size: 1em; box-shadow: 0 2px 8px rgba(0,0,0,0.12); transition: all 0.2s;
+  flex-shrink: 0;
+}
+.toggle-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.18); }
+.topbar-search-wrap {
+  position: relative; flex: 1; max-width: 480px;
+}
+.topbar-search-wrap input {
+  width: 100%; padding: 8px 36px 8px 14px;
+  border: 1.5px solid #e2e8f0; border-radius: 20px;
+  font-size: 0.9em; outline: none; color: #2d3748;
+}
+.topbar-search-wrap input:focus { border-color: #667eea; }
+.topbar-search-wrap .ts-icon { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #a0aec0; font-size: 0.9em; }
+.home-btn {
+  padding: 8px 14px; background: #f7f8fc;
+  border: 1.5px solid #e2e8f0; border-radius: 7px; cursor: pointer;
+  font-size: 0.85em; color: #667eea; font-weight: 600;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.home-btn:hover { background: #eef2ff; border-color: #667eea; }
 
-        /* ── Scrollbar ── */
-        .sidebar-content::-webkit-scrollbar { width: 6px; }
-        .sidebar-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
-        .sidebar-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 3px; }
+/* inline search dropdown (topbar) */
+#topbarResults {
+  position: absolute; top: calc(100% + 8px); left: 0; right: 0;
+  background: white; border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.14);
+  max-height: 50vh; overflow-y: auto;
+  display: none; z-index: 50;
+}
+#topbarResults.visible { display: block; }
 
-        .loading { text-align: center; padding: 40px; opacity: 0.8; }
-        .error   { text-align: center; padding: 30px; color: #fca5a5; font-size: 0.9em; }
-    </style>
+.welcome-screen {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  flex: 1; background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+  text-align: center; padding: 40px;
+}
+.welcome-screen .icon-large { font-size: 4.5em; margin-bottom: 18px; opacity: 0.22; }
+.welcome-screen h2 { font-size: 2em; color: #2d3748; margin-bottom: 8px; }
+.welcome-screen p  { font-size: 1em; color: #718096; }
+.content-frame { flex: 1; width: 100%; border: none; background: white; }
+
+/* scrollbar */
+.sidebar-content::-webkit-scrollbar { width: 6px; }
+.sidebar-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+.sidebar-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 3px; }
+#searchResults::-webkit-scrollbar, #topbarResults::-webkit-scrollbar { width: 5px; }
+#searchResults::-webkit-scrollbar-thumb, #topbarResults::-webkit-scrollbar-thumb { background: #cbd5e0; border-radius: 3px; }
+
+.loading { text-align: center; padding: 36px; opacity: 0.8; }
+.error   { text-align: center; padding: 28px; color: #fca5a5; font-size: 0.9em; }
+</style>
 </head>
 <body>
-<div class="container">
 
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h1>📚 Learning Materials</h1>
-            <p>Select a document to view</p>
-        </div>
-        <div class="sidebar-content" id="nav-content">
-            <div class="loading">Loading…</div>
-        </div>
+<!-- ═══════════════════════════════════════
+     SEARCH HOME PAGE
+═══════════════════════════════════════ -->
+<div id="searchPage">
+  <div class="search-logo">📚</div>
+  <div class="search-title">Learning Materials</div>
+  <div class="search-subtitle">Search your documents, notes & projects</div>
+
+  <div class="search-box-wrap">
+    <input id="homeInput" type="text" placeholder="Search topics, projects, files…" autocomplete="off" spellcheck="false">
+    <button class="search-clear" id="homeClear" title="Clear">✕</button>
+    <span class="search-icon">🔍</span>
+    <div id="searchResults"></div>
+  </div>
+
+  <div class="search-hint" id="hintChips">
+    <!-- filled dynamically with top-level folder names -->
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     MAIN VIEWER
+═══════════════════════════════════════ -->
+<div class="app" id="appView" style="display:none;">
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1>📚 Materials</h1>
+    </div>
+    <div class="sidebar-search">
+      <input id="sidebarInput" type="text" placeholder="Filter…" autocomplete="off">
+      <span class="ss-icon">🔍</span>
+    </div>
+    <div class="sidebar-content" id="nav-content">
+      <div class="loading">Loading…</div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="viewer-topbar">
+      <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+      <div class="topbar-search-wrap">
+        <input id="topbarInput" type="text" placeholder="Search all documents…" autocomplete="off" spellcheck="false">
+        <span class="ts-icon">🔍</span>
+        <div id="topbarResults"></div>
+      </div>
+      <button class="home-btn" onclick="goHome()">⌂ Home</button>
     </div>
 
-    <div class="main-content">
-        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
-
-        <div class="welcome-screen" id="welcomeScreen">
-            <div class="icon-large">📄</div>
-            <h2>Welcome!</h2>
-            <p>Select a document from the sidebar to begin</p>
-        </div>
-
-        <iframe class="content-frame" id="contentFrame" style="display:none;"></iframe>
+    <div class="welcome-screen" id="welcomeScreen">
+      <div class="icon-large">📄</div>
+      <h2>Select a document</h2>
+      <p>Use the sidebar or search bar to open a file</p>
     </div>
+
+    <iframe class="content-frame" id="contentFrame" style="display:none;"></iframe>
+  </div>
 </div>
 
 <script>
-// ── helpers ──────────────────────────────────────────────────────────────────
+// ─── state ────────────────────────────────────────────────────────────────────
+let INDEX = [];      // raw data from index.json
+let ALL_FILES = [];  // flat list: {name, path, folderName, subName, html}
+
+// ─── helpers ──────────────────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+
+function esc(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function highlight(text, q) {
+  if (!q) return esc(text);
+  const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+  return esc(text).replace(re, '<mark>$1</mark>');
+}
+
+// ─── flatten index to searchable list ────────────────────────────────────────
+function flatten(data) {
+  const list = [];
+  data.forEach(folder => {
+    // direct files in folder
+    (folder.files || []).forEach(f => {
+      list.push({
+        name: f.name,
+        html: f.html,
+        folderName: folder.name,
+        subName: null,
+        path: folder.name
+      });
+    });
+    // subfolders
+    (folder.subfolders || []).forEach(sub => {
+      (sub.files || []).forEach(f => {
+        list.push({
+          name: f.name,
+          html: f.html,
+          folderName: folder.name,
+          subName: sub.name,
+          path: `${folder.name} › ${sub.name}`
+        });
+      });
+    });
+  });
+  return list;
+}
+
+// ─── search logic ─────────────────────────────────────────────────────────────
+function search(q) {
+  if (!q.trim()) return [];
+  const lq = q.toLowerCase();
+  return ALL_FILES.filter(f =>
+    f.name.toLowerCase().includes(lq) ||
+    f.path.toLowerCase().includes(lq)
+  ).slice(0, 30);
+}
+
+// ─── render result list into a container ─────────────────────────────────────
+function renderResults(results, container, q, onPick) {
+  if (!results.length) {
+    container.innerHTML = `<div class="no-results">No results for "<strong>${esc(q)}</strong>"</div>`;
+    return;
+  }
+
+  // group by folder
+  const groups = {};
+  results.forEach(r => {
+    const key = r.path;
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(r);
+  });
+
+  let html = '';
+  Object.entries(groups).forEach(([grp, items]) => {
+    html += `<div class="result-group-label">${esc(grp)}</div>`;
+    items.forEach(r => {
+      html += `
+        <div class="result-item" data-html="${esc(r.html)}" data-name="${esc(r.name)}">
+          <span class="ri-icon">📄</span>
+          <div class="ri-info">
+            <div class="ri-name">${highlight(r.name, q)}</div>
+            <div class="ri-path">${esc(r.path)}</div>
+          </div>
+        </div>`;
+    });
+  });
+
+  container.innerHTML = html;
+  container.querySelectorAll('.result-item').forEach(el => {
+    el.onclick = () => onPick(el.dataset.html, el.dataset.name);
+  });
+}
+
+// ─── open a file ─────────────────────────────────────────────────────────────
+function openFile(htmlPath, name) {
+  // switch to viewer
+  $('searchPage').classList.add('hidden');
+  $('appView').style.display = 'flex';
+
+  const frame = $('contentFrame');
+  frame.src = htmlPath;
+  frame.style.display = 'block';
+  $('welcomeScreen').style.display = 'none';
+
+  // highlight in sidebar
+  document.querySelectorAll('.nav-file').forEach(e => {
+    e.classList.toggle('active', e.dataset.html === htmlPath);
+  });
+
+  // close dropdowns
+  $('searchResults').classList.remove('visible');
+  $('topbarResults').classList.remove('visible');
+  $('homeInput').value = '';
+  $('topbarInput').value = '';
+  $('homeClear').style.display = 'none';
+}
+
+// ─── home page search ─────────────────────────────────────────────────────────
+$('homeInput').addEventListener('input', function() {
+  const q = this.value.trim();
+  $('homeClear').style.display = q ? 'block' : 'none';
+  const results = search(q);
+  const cont = $('searchResults');
+  if (!q) { cont.classList.remove('visible'); return; }
+  cont.classList.add('visible');
+  renderResults(results, cont, q, (html, name) => openFile(html, name));
+});
+
+$('homeClear').onclick = () => {
+  $('homeInput').value = '';
+  $('homeClear').style.display = 'none';
+  $('searchResults').classList.remove('visible');
+  $('homeInput').focus();
+};
+
+// close dropdown when clicking outside
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-box-wrap')) $('searchResults').classList.remove('visible');
+  if (!e.target.closest('.topbar-search-wrap')) $('topbarResults').classList.remove('visible');
+});
+
+// ─── topbar search ────────────────────────────────────────────────────────────
+$('topbarInput').addEventListener('input', function() {
+  const q = this.value.trim();
+  const cont = $('topbarResults');
+  if (!q) { cont.classList.remove('visible'); return; }
+  cont.classList.add('visible');
+  const results = search(q);
+  renderResults(results, cont, q, (html, name) => openFile(html, name));
+});
+
+// ─── sidebar filter ───────────────────────────────────────────────────────────
+$('sidebarInput').addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  document.querySelectorAll('.nav-file').forEach(el => {
+    const matches = !q || el.dataset.name.toLowerCase().includes(q);
+    el.style.display = matches ? '' : 'none';
+  });
+  // auto-expand parents
+  if (q) {
+    document.querySelectorAll('.nav-children, .nav-files').forEach(el => el.classList.add('open'));
+  }
+});
+
+// ─── sidebar toggle ───────────────────────────────────────────────────────────
+function toggleSidebar() {
+  $('sidebar').classList.toggle('hidden');
+}
+
+// ─── go home ─────────────────────────────────────────────────────────────────
+function goHome() {
+  $('searchPage').classList.remove('hidden');
+  $('appView').style.display = 'none';
+  setTimeout(() => $('homeInput').focus(), 350);
+}
+
+// ─── build sidebar nav ───────────────────────────────────────────────────────
 function el(tag, cls, html) {
-    const d = document.createElement(tag);
-    if (cls)  d.className = cls;
-    if (html) d.innerHTML = html;
-    return d;
+  const d = document.createElement(tag);
+  if (cls)  d.className = cls;
+  if (html) d.innerHTML = html;
+  return d;
 }
 
 function toggleSection(contentEl, titleEl) {
-    const open = contentEl.classList.toggle('open');
-    titleEl.classList.toggle('collapsed', !open);
+  const open = contentEl.classList.toggle('open');
+  titleEl.classList.toggle('collapsed', !open);
 }
 
-function loadFile(file, fileEl) {
-    document.querySelectorAll('.nav-file').forEach(e => e.classList.remove('active'));
-    fileEl.classList.add('active');
-    const frame = document.getElementById('contentFrame');
-    frame.src = file.html;
-    frame.style.display = 'block';
-    document.getElementById('welcomeScreen').style.display = 'none';
-}
-
-function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('hidden');
-}
-
-// ── file element ─────────────────────────────────────────────────────────────
 function makeFileEl(file) {
-    const d = el('div', 'nav-file');
-    d.innerHTML = `<span>📄</span><span class="file-name">${file.name}</span>`;
-    d.onclick = () => loadFile(file, d);
-    return d;
+  const d = el('div', 'nav-file');
+  d.innerHTML = `<span>📄</span><span class="file-name">${esc(file.name)}</span>`;
+  d.dataset.html = file.html;
+  d.dataset.name = file.name;
+  d.onclick = () => openFile(file.html, file.name);
+  return d;
 }
 
-// ── files list ───────────────────────────────────────────────────────────────
 function makeFilesContainer(files, id) {
-    const wrap = el('div', 'nav-files open');
-    wrap.id = id;
-    files.forEach(f => wrap.appendChild(makeFileEl(f)));
-    return wrap;
+  const wrap = el('div', 'nav-files open');
+  if (id) wrap.id = id;
+  files.forEach(f => wrap.appendChild(makeFileEl(f)));
+  return wrap;
 }
 
-// ── subfolder row ─────────────────────────────────────────────────────────────
 function makeSubFolder(sub, id) {
-    const wrap = el('div');
-
-    const title = el('div', 'nav-sub-title',
-        `<span>📂</span><span>${sub.name}</span><span class="arrow">▼</span>`);
-
-    const filesWrap = makeFilesContainer(sub.files, id);
-
-    title.onclick = () => toggleSection(filesWrap, title);
-    wrap.appendChild(title);
-    wrap.appendChild(filesWrap);
-    return wrap;
+  const wrap = el('div');
+  const title = el('div', 'nav-sub-title',
+    `<span>📂</span><span>${esc(sub.name)}</span><span class="arrow">▼</span>`);
+  const filesWrap = makeFilesContainer(sub.files, id);
+  title.onclick = () => toggleSection(filesWrap, title);
+  wrap.appendChild(title);
+  wrap.appendChild(filesWrap);
+  return wrap;
 }
 
-// ── render ────────────────────────────────────────────────────────────────────
 function renderNavigation(data) {
-    const container = document.getElementById('nav-content');
-    container.innerHTML = '';
+  const container = $('nav-content');
+  container.innerHTML = '';
 
-    if (!data.length) {
-        container.innerHTML = '<div class="error">No folders found in index.json</div>';
-        return;
-    }
+  if (!data.length) {
+    container.innerHTML = '<div class="error">No folders found</div>';
+    return;
+  }
 
-    data.forEach((folder, fi) => {
-        const wrap = el('div', 'nav-folder');
+  data.forEach((folder, fi) => {
+    const wrap = el('div', 'nav-folder');
+    const title = el('div', 'nav-folder-title',
+      `<span>📁</span><span>${esc(folder.name)}</span><span class="arrow">▼</span>`);
+    const children = el('div', 'nav-children open');
+    children.id = `folder-${fi}`;
 
-        const title = el('div', 'nav-folder-title',
-            `<span>📁</span><span>${folder.name}</span><span class="arrow">▼</span>`);
+    (folder.files || []).forEach(f => children.appendChild(makeFileEl(f)));
+    (folder.subfolders || []).forEach((sub, si) =>
+      children.appendChild(makeSubFolder(sub, `sub-${fi}-${si}`)));
 
-        const children = el('div', 'nav-children open');
-        children.id = `folder-${fi}`;
-
-        // Direct files inside this folder
-        if (folder.files && folder.files.length) {
-            folder.files.forEach(f => children.appendChild(makeFileEl(f)));
-        }
-
-        // Subfolders
-        if (folder.subfolders && folder.subfolders.length) {
-            folder.subfolders.forEach((sub, si) => {
-                children.appendChild(makeSubFolder(sub, `sub-${fi}-${si}`));
-            });
-        }
-
-        title.onclick = () => toggleSection(children, title);
-        wrap.appendChild(title);
-        wrap.appendChild(children);
-        container.appendChild(wrap);
-    });
+    title.onclick = () => toggleSection(children, title);
+    wrap.appendChild(title);
+    wrap.appendChild(children);
+    container.appendChild(wrap);
+  });
 }
 
-// ── init ──────────────────────────────────────────────────────────────────────
+// ─── hint chips (top folder names) ───────────────────────────────────────────
+function buildHintChips(data) {
+  const container = $('hintChips');
+  data.slice(0, 6).forEach(folder => {
+    const chip = document.createElement('div');
+    chip.className = 'hint-chip';
+    chip.textContent = folder.name;
+    chip.onclick = () => {
+      $('homeInput').value = folder.name;
+      $('homeClear').style.display = 'block';
+      $('homeInput').dispatchEvent(new Event('input'));
+      $('homeInput').focus();
+    };
+    container.appendChild(chip);
+  });
+}
+
+// ─── init ─────────────────────────────────────────────────────────────────────
 async function loadIndex() {
-    try {
-        const res = await fetch('index.json?v=' + Date.now());
-        if (!res.ok) throw new Error('index.json not found');
-        renderNavigation(await res.json());
-    } catch (e) {
-        document.getElementById('nav-content').innerHTML =
-            `<div class="error">❌ ${e.message}<br><br>Run sync.ps1 to generate index.json</div>`;
-    }
+  try {
+    const res = await fetch('index.json?v=' + Date.now());
+    if (!res.ok) throw new Error('index.json not found – run sync.ps1 first');
+    INDEX = await res.json();
+    ALL_FILES = flatten(INDEX);
+    renderNavigation(INDEX);
+    buildHintChips(INDEX);
+  } catch (e) {
+    $('nav-content').innerHTML = `<div class="error">❌ ${e.message}</div>`;
+    $('hintChips').innerHTML = `<div style="color:rgba(255,255,255,0.7);font-size:0.9em;">⚠ ${e.message}</div>`;
+  }
 }
 
 loadIndex();
+$('homeInput').focus();
 </script>
 </body>
 </html>
