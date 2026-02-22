@@ -4,6 +4,6 @@ A personal collection of hands-on notes, examples, and mini-projects covering AI
 
 <div align="center">
 
-### 🚀 [View Learning Materials](https://mnoorchenar.github.io/Hands-On-AI/)
+### 🚀 <a href="https://mnoorchenar.github.io/Hands-On-AI/" target="_blank">View Learning Materials</a>
 
 </div>
