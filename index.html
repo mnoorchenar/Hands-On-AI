@@ -269,7 +269,7 @@ function renderNavigation(data) {
 // ── init ──────────────────────────────────────────────────────────────────────
 async function loadIndex() {
     try {
-        const res = await fetch('index.json');
+        const res = await fetch('index.json?v=' + Date.now());
         if (!res.ok) throw new Error('index.json not found');
         renderNavigation(await res.json());
     } catch (e) {
