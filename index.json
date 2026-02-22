@@ -1,0 +1,21 @@
+[
+  {
+    "name": "YOLO",
+    "folder": "YOLO",
+    "files": [
+      {
+        "name": "YOLO Object Detection Pipeline — Complete Walkthrough",
+        "html": "YOLO/01. YOLO Object Detection Pipeline — Complete Walkthrough.html"
+      },
+      {
+        "name": "YOLO Metrics — Complete Explanation with Numerical Examples",
+        "html": "YOLO/02. YOLO Metrics — Complete Explanation with Numerical Examples.html"
+      },
+      {
+        "name": "Label Studio Export Formats — Quick Overview",
+        "html": "YOLO/03. Label Studio Export Formats — Quick Overview.html"
+      }
+    ],
+    "subfolders": []
+  }
+]
