@@ -1,5 +1,16 @@
 [
   {
+    "name": "CNN",
+    "folder": "CNN",
+    "files": [
+      {
+        "name": "CNN Architecture — Layer Ordering & Dimension Problems",
+        "html": "CNN/01. CNN Architecture — Layer Ordering & Dimension Problems.html"
+      }
+    ],
+    "subfolders": []
+  },
+  {
     "name": "YOLO",
     "folder": "YOLO",
     "files": [
