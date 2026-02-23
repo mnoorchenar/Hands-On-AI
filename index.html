@@ -244,6 +244,41 @@ body {
 
 .loading { text-align: center; padding: 36px; opacity: 0.8; }
 .error   { text-align: center; padding: 28px; color: #fca5a5; font-size: 0.9em; }
+
+
+/* ── Disable text selection everywhere except inputs ── */
+body, .sidebar, .main-content, .nav-file,
+.result-item, .welcome-screen, .viewer-topbar {
+  -webkit-user-select: none;
+  -moz-user-select:    none;
+  -ms-user-select:     none;
+  user-select:         none;
+}
+
+/* Re-enable selection inside search inputs only */
+input, textarea {
+  -webkit-user-select: text;
+  -moz-user-select:    text;
+  user-select:         text;
+}
+
+/* Hide the page when printing */
+@media print {
+  body * { visibility: hidden !important; }
+  body::after {
+    visibility: visible !important;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    content: "🔒 Printing is not allowed.";
+    font-size: 2em;
+    color: #667eea;
+    font-family: sans-serif;
+  }
+}
+
+
 </style>
 </head>
 <body>
@@ -586,5 +621,111 @@ async function loadIndex() {
 loadIndex();
 $('homeInput').focus();
 </script>
+
+
+/*
+  ═══════════════════════════════════════════════════════
+  CONTENT PROTECTION — paste this <script> block just
+  before the closing </body> tag in your index.html
+  ═══════════════════════════════════════════════════════
+*/
+
+// ── 1. Block keyboard shortcuts ──────────────────────
+document.addEventListener('keydown', function(e) {
+  const key = e.key.toLowerCase();
+  const ctrl = e.ctrlKey || e.metaKey; // metaKey = Cmd on Mac
+
+  const blocked =
+    (ctrl && key === 's') ||   // Save
+    (ctrl && key === 'p') ||   // Print
+    (ctrl && key === 'u') ||   // View source
+    (ctrl && key === 'a') ||   // Select all
+    (ctrl && key === 'c') ||   // Copy  — remove if too restrictive
+    (ctrl && key === 'j') ||   // Downloads (Chrome)
+    (ctrl && key === 'r') ||   // Reload (optional — remove if needed)
+    (e.key === 'F12')   ||     // DevTools
+    (e.key === 'PrintScreen');
+
+  if (blocked) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+}, true); // 'true' = capture phase, fires before child iframes
+
+// ── 2. Block right-click context menu ────────────────
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+  return false;
+}, true);
+
+// ── 3. Block drag-and-drop (another save vector) ─────
+document.addEventListener('dragstart', function(e) {
+  e.preventDefault();
+  return false;
+});
+
+// ── 4. Disable text selection on non-input elements ──
+//    (keeps search inputs working)
+document.addEventListener('selectstart', function(e) {
+  if (!['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+    e.preventDefault();
+    return false;
+  }
+});
+
+// ── 5. Block print via window.print() ────────────────
+window.onbeforeprint = function(e) {
+  if (e) e.preventDefault();
+  return false;
+};
+(function() {
+  const orig = window.print;
+  window.print = function() { return false; };
+})();
+
+// ── 6. Re-apply protections inside loaded iframes ────
+//    Runs whenever a new HTML file is opened in the viewer
+document.getElementById('contentFrame').addEventListener('load', function() {
+  try {
+    const idoc = this.contentDocument || this.contentWindow.document;
+
+    // block keyboard shortcuts inside iframe
+    idoc.addEventListener('keydown', function(e) {
+      const key  = e.key.toLowerCase();
+      const ctrl = e.ctrlKey || e.metaKey;
+      if (
+        (ctrl && key === 's') ||
+        (ctrl && key === 'p') ||
+        (ctrl && key === 'u') ||
+        (ctrl && key === 'a') ||
+        (ctrl && key === 'c') ||
+        (ctrl && key === 'j') ||
+        e.key === 'F12' ||
+        e.key === 'PrintScreen'
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+    }, true);
+
+    // block right-click inside iframe
+    idoc.addEventListener('contextmenu', e => {
+      e.preventDefault();
+      return false;
+    }, true);
+
+    // block selection inside iframe
+    idoc.addEventListener('selectstart', e => {
+      e.preventDefault();
+      return false;
+    });
+  } catch (err) {
+    // cross-origin iframes will throw — silently ignore
+  }
+});
+
+
 </body>
 </html>
