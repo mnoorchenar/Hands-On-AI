@@ -56,14 +56,15 @@
    RESET & BASE
 ══════════════════════════════════════════ */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html, body { height: 100%; }
 body {
   font-family: 'Segoe UI', system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
-  overflow-x: hidden;
-  min-height: 100vh;
+  overflow: hidden;
+  height: 100vh;
+  display: flex; flex-direction: column;
   transition: background .3s, color .3s;
 }
 ::-webkit-scrollbar { width: 6px; }
@@ -102,12 +103,20 @@ body {
 .copyright-banner {
   background: linear-gradient(90deg, rgba(239,68,68,.09), rgba(245,158,11,.07));
   border-bottom: 1px solid rgba(239,68,68,.2);
-  padding: 9px 56px 9px 24px; /* right padding for theme btn */
+  padding: 7px 56px 7px 24px; /* right padding for theme btn */
   display: flex; align-items: center; justify-content: center;
   gap: 9px; font-size: .79em; color: #fca5a5;
-  text-align: center; line-height: 1.5;
+  text-align: center; line-height: 1.5; flex-shrink: 0;
   transition: background .3s;
 }
+.copyright-banner.hidden { display: none; }
+.banner-close {
+  background: none; border: none; color: #fca5a5; cursor: pointer;
+  padding: 3px 7px; border-radius: 6px; font-size: .85em; flex-shrink: 0;
+  margin-left: 4px; transition: background .2s, color .2s; line-height: 1;
+}
+.banner-close:hover { background: rgba(239,68,68,.2); color: #fff; }
+[data-theme="light"] .banner-close { color: #c0392b; }
 [data-theme="light"] .copyright-banner {
   background: linear-gradient(90deg, rgba(239,68,68,.07), rgba(245,158,11,.05));
   color: #c0392b;
@@ -121,8 +130,8 @@ body {
 ══════════════════════════════════════════ */
 header {
   position: relative;
-  padding: 52px 24px 36px;
-  text-align: center; overflow: hidden;
+  padding: 18px 24px 14px;
+  text-align: center; overflow: hidden; flex-shrink: 0;
 }
 .header-bg {
   position: absolute; inset: 0;
@@ -142,9 +151,9 @@ header {
 .header-badge {
   display: inline-flex; align-items: center; gap: 7px;
   background: rgba(79,142,247,.1); border: 1px solid rgba(79,142,247,.25);
-  color: var(--accent); padding: 5px 16px; border-radius: 20px;
+  color: var(--accent); padding: 4px 14px; border-radius: 20px;
   font-size: .74em; font-weight: 700; letter-spacing: .8px; text-transform: uppercase;
-  margin-bottom: 16px; position: relative; z-index: 2; overflow: hidden;
+  margin-bottom: 8px; position: relative; z-index: 2; overflow: hidden;
 }
 .header-badge::before {
   content: ''; position: absolute; left: -100%; top: 0; width: 60%; height: 100%;
@@ -153,9 +162,9 @@ header {
 }
 @keyframes shimmer { 0%{left:-100%} 100%{left:200%} }
 .header-title {
-  font-size: clamp(2.1em, 5.5vw, 3.8em); font-weight: 900;
+  font-size: clamp(1.6em, 4vw, 2.6em); font-weight: 900;
   letter-spacing: -1.5px; line-height: 1.05;
-  position: relative; z-index: 2; margin-bottom: 10px;
+  position: relative; z-index: 2; margin-bottom: 4px;
 }
 .header-title span {
   background: linear-gradient(135deg, var(--accent) 30%, var(--teal) 100%);
@@ -165,7 +174,7 @@ header {
 .header-prof {
   display: inline-flex; align-items: center; gap: 8px;
   color: var(--teal); font-size: .87em; font-weight: 600;
-  position: relative; z-index: 2; margin-bottom: 34px;
+  position: relative; z-index: 2; margin-bottom: 12px;
 }
 
 /* ══════════════════════════════════════════
@@ -173,7 +182,7 @@ header {
 ══════════════════════════════════════════ */
 .search-wrap {
   position: relative; z-index: 10;
-  max-width: 680px; margin: 0 auto 40px; padding: 0 16px;
+  max-width: 680px; margin: 0 auto 0; padding: 0 16px;
 }
 .search-box {
   position: relative; display: flex; align-items: center;
@@ -214,11 +223,11 @@ header {
 /* ══════════════════════════════════════════
    MAIN
 ══════════════════════════════════════════ */
-main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
+main { max-width: 1100px; margin: 0 auto; padding: 0 24px 24px; width: 100%; flex: 1; overflow-y: auto; min-height: 0; }
 
 .stats-bar {
   display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
-  margin-bottom: 40px; opacity: 0; transform: translateY(16px);
+  margin-bottom: 16px; padding-top: 16px; opacity: 0; transform: translateY(16px);
   transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1);
 }
 .stats-bar.visible { opacity: 1; transform: translateY(0); }
@@ -468,7 +477,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
 ══════════════════════════════════════════ */
 footer {
   background: var(--bg2); border-top: 1px solid var(--glass-border);
-  padding: 28px 24px 22px; text-align: center;
+  padding: 10px 24px; text-align: center; flex-shrink: 0;
   transition: background .3s, border-color .3s;
 }
 .footer-logo {
@@ -505,13 +514,14 @@ footer {
 </button>
 
 <!-- COPYRIGHT BANNER -->
-<div class="copyright-banner">
+<div class="copyright-banner" id="copyright-banner">
   <i class="fas fa-lock"></i>
   <span>
     These materials are strictly reserved for students enrolled in courses taught by
     <strong>Prof. Mohammad Noorchenarboo</strong> at <strong>Fanshawe College</strong>.
     Any distribution or use outside of these courses is strictly prohibited.
   </span>
+  <button class="banner-close" id="banner-close" aria-label="Dismiss notice"><i class="fas fa-times"></i></button>
 </div>
 
 <!-- HEADER -->
@@ -585,6 +595,16 @@ footer {
 </div>
 
 <script>
+/* ══════════════════════════════════════
+   BANNER DISMISS
+══════════════════════════════════════ */
+const banner = document.getElementById('copyright-banner');
+if (localStorage.getItem('banner-dismissed') === '1') banner.classList.add('hidden');
+document.getElementById('banner-close').addEventListener('click', () => {
+  banner.classList.add('hidden');
+  localStorage.setItem('banner-dismissed', '1');
+});
+
 /* ══════════════════════════════════════
    THEME
 ══════════════════════════════════════ */
