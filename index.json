@@ -11,6 +11,33 @@
     "subfolders": []
   },
   {
+    "name": "GAN",
+    "folder": "GAN",
+    "files": [
+      {
+        "name": "Generative Adversarial Networks (GANs) — Section 1 Introduction & The Adversarial Game",
+        "html": "GAN/01. Generative Adversarial Networks (GANs) — Section 1 Introduction & The Adversarial Game.html"
+      },
+      {
+        "name": "Generative Adversarial Networks (GANs) — Section 2 Architecture — Generator & Discriminator Design",
+        "html": "GAN/02. Generative Adversarial Networks (GANs) — Section 2 Architecture — Generator & Discriminator Design.html"
+      },
+      {
+        "name": "Generative Adversarial Networks (GANs) — Section 3 Loss Functions & The Minimax Mathematics",
+        "html": "GAN/03. Generative Adversarial Networks (GANs) — Section 3 Loss Functions & The Minimax Mathematics.html"
+      },
+      {
+        "name": "Generative Adversarial Networks (GANs) — Section 4 Training Process, Challenges & Solutions",
+        "html": "GAN/04. Generative Adversarial Networks (GANs) — Section 4 Training Process, Challenges & Solutions.html"
+      },
+      {
+        "name": "Generative Adversarial Networks (GANs) — Section 5 GAN Variants & Practical Implementation",
+        "html": "GAN/05. Generative Adversarial Networks (GANs) — Section 5 GAN Variants & Practical Implementation.html"
+      }
+    ],
+    "subfolders": []
+  },
+  {
     "name": "RNN",
     "folder": "RNN",
     "files": [
