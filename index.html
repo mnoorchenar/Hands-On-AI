@@ -7,22 +7,21 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 :root {
-  --navy:   #070d1f;
-  --navy2:  #0d1530;
-  --navy3:  #111d3c;
-  --accent: #4f8ef7;
-  --accent2:#7c3aed;
-  --teal:   #06b6d4;
-  --green:  #22c55e;
-  --gold:   #f59e0b;
-  --red:    #ef4444;
-  --text:   #e2e8f0;
-  --muted:  #8892a4;
-  --glass:         rgba(255,255,255,0.04);
-  --glass-border:  rgba(255,255,255,0.08);
-  --radius: 14px;
+  --navy:         #070d1f;
+  --navy2:        #0d1530;
+  --navy3:        #111d3c;
+  --accent:       #4f8ef7;
+  --accent2:      #7c3aed;
+  --teal:         #06b6d4;
+  --green:        #22c55e;
+  --gold:         #f59e0b;
+  --red:          #ef4444;
+  --text:         #e2e8f0;
+  --muted:        #8892a4;
+  --glass:        rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+  --radius:       14px;
 }
-
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
@@ -37,39 +36,42 @@ body {
 ::-webkit-scrollbar-track { background: var(--navy2); }
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
 
-/* ── COPYRIGHT BANNER ── */
+/* ═══════════════════════════════════════════
+   COPYRIGHT BANNER
+═══════════════════════════════════════════ */
 .copyright-banner {
-  background: linear-gradient(90deg, rgba(239,68,68,.12), rgba(245,158,11,.1));
-  border-bottom: 1px solid rgba(239,68,68,.25);
-  padding: 10px 24px;
+  background: linear-gradient(90deg, rgba(239,68,68,.1), rgba(245,158,11,.08));
+  border-bottom: 1px solid rgba(239,68,68,.22);
+  padding: 9px 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  font-size: .8em;
+  font-size: .79em;
   color: #fca5a5;
   text-align: center;
+  line-height: 1.5;
 }
 .copyright-banner i { color: #f87171; flex-shrink: 0; }
 
-/* ── HEADER ── */
+/* ═══════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════ */
 header {
   position: relative;
-  padding: 56px 24px 40px;
+  padding: 52px 24px 36px;
   text-align: center;
   overflow: hidden;
 }
 .header-bg {
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   background:
     radial-gradient(ellipse 80% 70% at 50% -10%, rgba(79,142,247,.15) 0%, transparent 65%),
     radial-gradient(ellipse 40% 40% at 85% 90%,  rgba(124,58,237,.12) 0%, transparent 55%);
   pointer-events: none;
 }
 .header-grid {
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   background-image:
     linear-gradient(rgba(79,142,247,.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(79,142,247,.04) 1px, transparent 1px);
@@ -85,19 +87,17 @@ header {
   color: var(--accent);
   padding: 5px 16px;
   border-radius: 20px;
-  font-size: .75em;
+  font-size: .74em;
   font-weight: 700;
   letter-spacing: .8px;
   text-transform: uppercase;
-  margin-bottom: 18px;
-  position: relative;
-  z-index: 2;
+  margin-bottom: 16px;
+  position: relative; z-index: 2;
   overflow: hidden;
 }
 .header-badge::before {
   content: '';
-  position: absolute;
-  left: -100%; top: 0;
+  position: absolute; left: -100%; top: 0;
   width: 60%; height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
   animation: shimmer 3.5s ease-in-out infinite;
@@ -105,13 +105,12 @@ header {
 @keyframes shimmer { 0%{left:-100%} 100%{left:200%} }
 
 .header-title {
-  font-size: clamp(2em, 5vw, 3.6em);
+  font-size: clamp(2.1em, 5.5vw, 3.8em);
   font-weight: 900;
   letter-spacing: -1.5px;
   line-height: 1.05;
-  position: relative;
-  z-index: 2;
-  margin-bottom: 12px;
+  position: relative; z-index: 2;
+  margin-bottom: 10px;
 }
 .header-title span {
   background: linear-gradient(135deg, var(--accent) 30%, var(--teal) 100%);
@@ -121,9 +120,8 @@ header {
 }
 .header-subtitle {
   color: var(--muted);
-  font-size: clamp(.9em, 1.8vw, 1.05em);
-  position: relative;
-  z-index: 2;
+  font-size: .97em;
+  position: relative; z-index: 2;
   margin-bottom: 6px;
 }
 .header-prof {
@@ -131,20 +129,19 @@ header {
   align-items: center;
   gap: 8px;
   color: var(--teal);
-  font-size: .88em;
+  font-size: .87em;
   font-weight: 600;
-  position: relative;
-  z-index: 2;
-  margin-bottom: 36px;
+  position: relative; z-index: 2;
+  margin-bottom: 34px;
 }
-.header-prof i { font-size: .9em; }
 
-/* ── SEARCH BAR (Google style) ── */
+/* ═══════════════════════════════════════════
+   GOOGLE-STYLE SEARCH BAR
+═══════════════════════════════════════════ */
 .search-wrap {
-  position: relative;
-  z-index: 10;
+  position: relative; z-index: 10;
   max-width: 680px;
-  margin: 0 auto 44px;
+  margin: 0 auto 40px;
   padding: 0 16px;
 }
 .search-box {
@@ -154,70 +151,88 @@ header {
   background: var(--navy3);
   border: 1.5px solid rgba(79,142,247,.3);
   border-radius: 50px;
-  padding: 0 20px 0 56px;
+  padding: 0 16px 0 54px;
   transition: .25s;
   box-shadow: 0 4px 32px rgba(0,0,0,.3);
 }
 .search-box:focus-within {
   border-color: var(--accent);
-  background: rgba(17,29,60,.9);
-  box-shadow: 0 6px 48px rgba(79,142,247,.2), 0 0 0 3px rgba(79,142,247,.08);
+  background: rgba(17,29,60,.95);
+  box-shadow: 0 6px 48px rgba(79,142,247,.18), 0 0 0 3px rgba(79,142,247,.07);
 }
 .search-icon {
-  position: absolute;
-  left: 20px;
+  position: absolute; left: 20px;
   color: var(--muted);
-  font-size: 1em;
+  font-size: .95em;
   pointer-events: none;
-  transition: .25s;
+  transition: color .25s;
 }
 .search-box:focus-within .search-icon { color: var(--accent); }
-
 #search-input {
   flex: 1;
   background: transparent;
-  border: none;
-  outline: none;
+  border: none; outline: none;
   color: var(--text);
   font-size: 1.05em;
   padding: 15px 0;
   font-family: inherit;
 }
 #search-input::placeholder { color: var(--muted); }
-
 .search-clear {
-  background: none;
-  border: none;
+  background: none; border: none;
   color: var(--muted);
   cursor: pointer;
-  padding: 6px;
-  border-radius: 50%;
-  font-size: .85em;
+  padding: 6px; border-radius: 50%;
+  font-size: .82em;
   transition: .2s;
   display: none;
-  align-items: center;
-  justify-content: center;
+  align-items: center; justify-content: center;
 }
 .search-clear:hover { color: var(--text); background: rgba(255,255,255,.07); }
 .search-clear.visible { display: flex; }
-
-.search-count {
-  font-size: .78em;
+.search-hint {
+  font-size: .74em;
   color: var(--muted);
   text-align: center;
-  margin-top: 10px;
-  min-height: 1.2em;
-  transition: .2s;
+  margin-top: 8px;
+}
+.search-hint kbd {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 5px;
+  padding: 1px 6px;
+  font-family: inherit;
+  font-size: .9em;
 }
 
-/* ── MAIN CONTENT ── */
+/* ═══════════════════════════════════════════
+   MAIN
+═══════════════════════════════════════════ */
 main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
 
-/* ── CATEGORY GRID (default view) ── */
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: .6s cubic-bezier(.22,1,.36,1);
+}
+.stats-bar.visible { opacity: 1; transform: translateY(0); }
+.stat-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: .82em; color: var(--muted);
+}
+.stat-item i { color: var(--accent); }
+.stat-item strong { color: var(--text); }
+
+/* ── CATEGORY GRID ── */
 #category-view { display: block; }
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
   gap: 20px;
 }
 .category-card {
@@ -227,282 +242,225 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
   overflow: hidden;
   transition: .3s;
   position: relative;
+  opacity: 0;
+  transform: translateY(20px);
 }
+.category-card.visible { opacity: 1; transform: translateY(0); }
 .category-card::before {
   content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
   background: linear-gradient(90deg, var(--accent), var(--teal));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: .3s;
+  transform: scaleX(0); transform-origin: left; transition: .3s;
 }
-.category-card:hover {
-  border-color: rgba(79,142,247,.35);
-  background: rgba(255,255,255,.06);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 48px rgba(0,0,0,.3);
-}
+.category-card:hover { border-color: rgba(79,142,247,.35); background: rgba(255,255,255,.06); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,.3); }
 .category-card:hover::before { transform: scaleX(1); }
 
 .category-header {
   padding: 18px 20px 14px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  display: flex; align-items: center; gap: 12px;
   border-bottom: 1px solid var(--glass-border);
 }
 .category-icon {
   width: 42px; height: 42px;
   border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.1em;
-  font-weight: 800;
-  color: #fff;
-  flex-shrink: 0;
+  font-size: 1em; font-weight: 800;
+  color: #fff; flex-shrink: 0;
 }
-.category-icon.c0 { background: linear-gradient(135deg,#4f8ef7,#06b6d4); }
-.category-icon.c1 { background: linear-gradient(135deg,#7c3aed,#4f8ef7); }
-.category-icon.c2 { background: linear-gradient(135deg,#06b6d4,#22c55e); }
-.category-icon.c3 { background: linear-gradient(135deg,#f59e0b,#ef4444); }
-.category-icon.c4 { background: linear-gradient(135deg,#ec4899,#7c3aed); }
-.category-icon.c5 { background: linear-gradient(135deg,#22c55e,#06b6d4); }
+.category-name { font-size: 1em; font-weight: 800; color: #fff; }
+.category-count { font-size: .74em; color: var(--muted); margin-top: 2px; }
 
-.category-name {
-  font-size: 1em;
-  font-weight: 800;
-  color: #fff;
-}
-.category-count {
-  font-size: .75em;
-  color: var(--muted);
-  margin-top: 2px;
-}
-
-.file-list { padding: 8px 0; }
+.file-list { padding: 6px 0; }
 .file-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: flex; align-items: center; gap: 10px;
   padding: 9px 20px;
-  text-decoration: none;
+  cursor: pointer;
   color: var(--muted);
   font-size: .875em;
   transition: .2s;
   border-bottom: 1px solid rgba(255,255,255,.03);
+  user-select: none;
 }
 .file-item:last-child { border-bottom: none; }
-.file-item:hover {
-  color: var(--text);
-  background: rgba(79,142,247,.07);
-  padding-left: 26px;
-}
-.file-item i { color: var(--accent); font-size: .8em; flex-shrink: 0; }
+.file-item:hover { color: var(--text); background: rgba(79,142,247,.07); padding-left: 26px; }
 .file-num {
-  color: var(--accent);
-  font-size: .72em;
-  font-weight: 700;
-  background: rgba(79,142,247,.12);
-  border: 1px solid rgba(79,142,247,.2);
-  padding: 1px 7px;
-  border-radius: 8px;
-  flex-shrink: 0;
+  color: var(--accent); font-size: .72em; font-weight: 700;
+  background: rgba(79,142,247,.12); border: 1px solid rgba(79,142,247,.2);
+  padding: 1px 7px; border-radius: 8px; flex-shrink: 0;
 }
 .file-name { flex: 1; line-height: 1.4; }
+.file-chevron { font-size: .7em; color: var(--muted); flex-shrink: 0; transition: .2s; }
+.file-item:hover .file-chevron { color: var(--accent); transform: translateX(3px); }
 
-/* ── SEARCH RESULTS VIEW ── */
+/* ── SEARCH RESULTS ── */
 #search-view { display: none; }
 .results-header {
-  font-size: .82em;
-  color: var(--muted);
-  margin-bottom: 16px;
-  padding-bottom: 10px;
+  font-size: .82em; color: var(--muted);
+  margin-bottom: 14px; padding-bottom: 10px;
   border-bottom: 1px solid var(--glass-border);
 }
 .results-header strong { color: var(--accent); }
 
-.result-list { display: flex; flex-direction: column; gap: 10px; }
+.result-list { display: flex; flex-direction: column; gap: 9px; }
 .result-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
+  display: flex; align-items: flex-start; gap: 16px;
   background: var(--glass);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
-  padding: 16px 20px;
-  text-decoration: none;
+  padding: 15px 18px;
+  cursor: pointer;
   color: inherit;
-  transition: .25s;
-  position: relative;
-  overflow: hidden;
+  transition: .22s;
+  position: relative; overflow: hidden;
+  user-select: none;
 }
 .result-item::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
   background: linear-gradient(to bottom, var(--accent), var(--teal));
-  opacity: 0;
-  transition: .25s;
+  opacity: 0; transition: .22s;
 }
-.result-item:hover {
-  border-color: rgba(79,142,247,.35);
-  background: rgba(255,255,255,.06);
-  transform: translateX(4px);
-  box-shadow: 0 8px 32px rgba(0,0,0,.25);
-}
+.result-item:hover { border-color: rgba(79,142,247,.35); background: rgba(255,255,255,.06); transform: translateX(4px); box-shadow: 0 8px 32px rgba(0,0,0,.22); }
 .result-item:hover::before { opacity: 1; }
-
 .result-icon {
-  width: 40px; height: 40px;
-  border-radius: 10px;
+  width: 40px; height: 40px; border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1em;
-  color: #fff;
-  flex-shrink: 0;
-  margin-top: 2px;
+  font-size: .95em; font-weight: 800; color: #fff; flex-shrink: 0; margin-top: 2px;
 }
 .result-body { flex: 1; min-width: 0; }
 .result-folder {
-  font-size: .75em;
-  color: var(--teal);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  font-size: .73em; color: var(--teal); font-weight: 600;
+  text-transform: uppercase; letter-spacing: .5px;
+  margin-bottom: 3px;
+  display: flex; align-items: center; gap: 5px;
 }
-.result-title {
-  font-size: .95em;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.35;
-  margin-bottom: 4px;
-}
-.result-title mark {
-  background: rgba(79,142,247,.3);
-  color: var(--accent);
-  border-radius: 3px;
-  padding: 0 2px;
-}
-.result-open {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 8px;
-  font-size: .78em;
-  color: var(--accent);
-  font-weight: 600;
-}
-.result-arrow {
-  flex-shrink: 0;
-  color: var(--muted);
-  font-size: .85em;
-  align-self: center;
-  transition: .2s;
-}
+.result-title { font-size: .94em; font-weight: 700; color: var(--text); line-height: 1.35; }
+.result-title mark { background: rgba(79,142,247,.3); color: var(--accent); border-radius: 3px; padding: 0 2px; font-style: normal; }
+.result-open { display: flex; align-items: center; gap: 5px; margin-top: 7px; font-size: .76em; color: var(--accent); font-weight: 600; }
+.result-arrow { flex-shrink: 0; color: var(--muted); font-size: .82em; align-self: center; transition: .2s; }
 .result-item:hover .result-arrow { color: var(--accent); transform: translateX(3px); }
 
-.no-results {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--muted);
-}
-.no-results i { font-size: 2.5em; margin-bottom: 14px; color: var(--navy3); display: block; }
-.no-results strong { color: var(--text); display: block; margin-bottom: 8px; font-size: 1.05em; }
+.no-results { text-align: center; padding: 60px 20px; color: var(--muted); }
+.no-results i { font-size: 2.4em; margin-bottom: 12px; color: var(--navy3); display: block; }
+.no-results strong { color: var(--text); display: block; margin-bottom: 6px; font-size: 1.04em; }
 
-/* ── STATS BAR ── */
-.stats-bar {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  flex-wrap: wrap;
-  margin-bottom: 44px;
+/* ═══════════════════════════════════════════
+   IFRAME VIEWER (full-screen overlay)
+═══════════════════════════════════════════ */
+#viewer {
+  position: fixed; inset: 0; z-index: 9999;
+  display: none;
+  flex-direction: column;
+  background: var(--navy);
 }
-.stat-item {
+#viewer.open { display: flex; }
+
+.viewer-bar {
+  height: 52px;
+  background: var(--navy2);
+  border-bottom: 1px solid var(--glass-border);
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: .82em;
-  color: var(--muted);
+  gap: 12px;
+  padding: 0 16px;
+  flex-shrink: 0;
 }
-.stat-item i { color: var(--accent); }
-.stat-item strong { color: var(--text); }
+.viewer-back {
+  display: flex; align-items: center; gap: 7px;
+  background: rgba(79,142,247,.1);
+  border: 1px solid rgba(79,142,247,.25);
+  color: var(--accent);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: .82em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+.viewer-back:hover { background: rgba(79,142,247,.2); transform: translateX(-2px); }
+
+.viewer-title {
+  flex: 1;
+  font-size: .85em;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.viewer-folder {
+  font-size: .74em;
+  color: var(--teal);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.viewer-actions {
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+}
+.viewer-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--muted);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: .78em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s;
+  text-decoration: none;
+  font-family: inherit;
+}
+.viewer-btn:hover { color: var(--text); border-color: rgba(79,142,247,.3); background: rgba(255,255,255,.07); }
+
+.viewer-iframe {
+  flex: 1;
+  border: none;
+  width: 100%;
+  background: #fff;
+}
 
 /* ── FOOTER ── */
 footer {
   background: var(--navy2);
   border-top: 1px solid var(--glass-border);
-  padding: 40px 24px 28px;
+  padding: 28px 24px 22px;
   text-align: center;
 }
-.footer-inner { max-width: 700px; margin: 0 auto; }
 .footer-logo {
-  font-size: 1.4em;
-  font-weight: 900;
+  font-size: 1.2em; font-weight: 900;
   background: linear-gradient(135deg, var(--accent), var(--teal));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
-.footer-college {
-  color: var(--muted);
-  font-size: .85em;
-  margin-bottom: 20px;
-}
-.footer-copyright {
-  background: rgba(239,68,68,.08);
-  border: 1px solid rgba(239,68,68,.2);
-  border-radius: var(--radius);
-  padding: 16px 20px;
-  margin-bottom: 18px;
-  color: #fca5a5;
-  font-size: .8em;
-  line-height: 1.7;
-}
-.footer-copyright strong { color: #f87171; display: block; margin-bottom: 4px; font-size: 1.02em; }
-.footer-copy {
-  color: var(--muted);
-  font-size: .75em;
-}
-.footer-copy a { color: var(--accent); text-decoration: none; }
-.footer-copy a:hover { text-decoration: underline; }
-
-/* ── FADE ANIMATION ── */
-.fade-up {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: .6s cubic-bezier(.22,1,.36,1);
-}
-.fade-up.visible { opacity: 1; transform: translateY(0); }
+.footer-copy { color: var(--muted); font-size: .75em; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 600px) {
   .category-grid { grid-template-columns: 1fr; }
-  .header-title { letter-spacing: -.5px; }
-  .stats-bar { gap: 16px; }
+  .viewer-folder { display: none; }
+  .viewer-btn span { display: none; }
 }
 </style>
 </head>
 <body>
 
-<!-- COPYRIGHT NOTICE BANNER -->
+<!-- ── COPYRIGHT BANNER ── -->
 <div class="copyright-banner">
   <i class="fas fa-lock"></i>
   <span>
-    <strong>Restricted Access:</strong>
-    These materials are exclusively for enrolled students of the
-    <strong>Hands-On AI</strong> course at <strong>Fanshawe College</strong>
-    under <strong>Prof. Mohammad Noorchenarboo</strong>.
-    Distribution or reproduction is strictly prohibited.
+    These materials are strictly reserved for students enrolled in courses taught by
+    <strong>Prof. Mohammad Noorchenarboo</strong> at <strong>Fanshawe College</strong>.
+    Any distribution or use outside of these courses is strictly prohibited.
   </span>
 </div>
 
-<!-- HEADER -->
+<!-- ── HEADER ── -->
 <header>
   <div class="header-bg"></div>
   <div class="header-grid"></div>
@@ -512,18 +470,13 @@ footer {
     Fanshawe College &mdash; Course Materials
   </div>
 
-  <h1 class="header-title">
-    Hands&#8209;On <span>AI</span>
-  </h1>
-
+  <h1 class="header-title">Hands&#8209;On <span>AI</span></h1>
   <p class="header-subtitle">Interactive lecture notes &amp; study materials</p>
-
   <div class="header-prof">
     <i class="fas fa-chalkboard-teacher"></i>
     Prof. Mohammad Noorchenarboo
   </div>
 
-  <!-- SEARCH BAR -->
   <div class="search-wrap">
     <div class="search-box">
       <i class="fas fa-search search-icon"></i>
@@ -534,76 +487,60 @@ footer {
         autocomplete="off"
         spellcheck="false"
       >
-      <button class="search-clear" id="search-clear" aria-label="Clear search">
+      <button class="search-clear" id="search-clear" aria-label="Clear">
         <i class="fas fa-times"></i>
       </button>
     </div>
-    <div class="search-count" id="search-count"></div>
+    <div class="search-hint">Press <kbd>/</kbd> to search &nbsp;·&nbsp; <kbd>Esc</kbd> to clear</div>
   </div>
 </header>
 
-<!-- MAIN -->
+<!-- ── MAIN ── -->
 <main>
-
-  <!-- STATS BAR -->
-  <div class="stats-bar fade-up" id="stats-bar">
-    <div class="stat-item">
-      <i class="fas fa-folder"></i>
-      <span><strong id="stat-folders">—</strong> Topics</span>
-    </div>
-    <div class="stat-item">
-      <i class="fas fa-file-alt"></i>
-      <span><strong id="stat-files">—</strong> Lectures</span>
-    </div>
-    <div class="stat-item">
-      <i class="fas fa-university"></i>
-      <span>Fanshawe College</span>
-    </div>
+  <div class="stats-bar" id="stats-bar">
+    <div class="stat-item"><i class="fas fa-folder"></i><span><strong id="stat-folders">—</strong> Topics</span></div>
+    <div class="stat-item"><i class="fas fa-file-alt"></i><span><strong id="stat-files">—</strong> Lectures</span></div>
+    <div class="stat-item"><i class="fas fa-university"></i><span>Fanshawe College</span></div>
   </div>
 
-  <!-- CATEGORY GRID VIEW (default) -->
   <div id="category-view">
-    <div class="category-grid" id="category-grid">
-      <!-- Populated by JS -->
-    </div>
+    <div class="category-grid" id="category-grid"></div>
   </div>
 
-  <!-- SEARCH RESULTS VIEW -->
   <div id="search-view">
     <div class="results-header" id="results-header"></div>
-    <div class="result-list" id="result-list">
-      <!-- Populated by JS -->
-    </div>
+    <div class="result-list" id="result-list"></div>
   </div>
-
 </main>
 
-<!-- FOOTER -->
+<!-- ── FOOTER ── -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-logo">Hands-On AI</div>
-    <div class="footer-college">Fanshawe College &mdash; Applied AI &amp; Machine Learning</div>
-
-    <div class="footer-copyright">
-      <strong><i class="fas fa-shield-alt"></i> &nbsp;Copyright &amp; Usage Restriction</strong>
-      All materials in this repository — including lecture notes, code examples, diagrams, and
-      any other content — are the exclusive intellectual property of
-      <strong>Prof. Mohammad Noorchenarboo</strong> and are strictly intended for students
-      enrolled in the <strong>Hands-On AI</strong> course at
-      <strong>Fanshawe College</strong>. Any distribution, reproduction, modification,
-      publication, or use outside of this course context is <strong>strictly prohibited</strong>
-      without prior written permission.
-    </div>
-
-    <div class="footer-copy">
-      &copy; <span id="year"></span> Mohammad Noorchenarboo &mdash; Fanshawe College.
-      All rights reserved.
-    </div>
-  </div>
+  <div class="footer-logo">Hands-On AI</div>
+  <div class="footer-copy">&copy; <span id="year"></span> Mohammad Noorchenarboo &mdash; Fanshawe College. All rights reserved.</div>
 </footer>
 
+<!-- ══════════════════════════════════════════
+     IFRAME VIEWER OVERLAY
+══════════════════════════════════════════ -->
+<div id="viewer">
+  <div class="viewer-bar">
+    <button class="viewer-back" id="viewer-back">
+      <i class="fas fa-arrow-left"></i> Back to Search
+    </button>
+    <div class="viewer-title" id="viewer-title"></div>
+    <div class="viewer-folder" id="viewer-folder"></div>
+    <div class="viewer-actions">
+      <a class="viewer-btn" id="viewer-newtab" href="#" target="_blank" rel="noopener">
+        <i class="fas fa-external-link-alt"></i>
+        <span>Open in Tab</span>
+      </a>
+    </div>
+  </div>
+  <iframe class="viewer-iframe" id="viewer-iframe" title="Lecture viewer"></iframe>
+</div>
+
 <script>
-/* ── COLOUR PALETTE for category icons ── */
+/* ── COLOUR GRADIENTS ── */
 const GRADIENTS = [
   ['#4f8ef7','#06b6d4'],
   ['#7c3aed','#4f8ef7'],
@@ -613,27 +550,61 @@ const GRADIENTS = [
   ['#22c55e','#06b6d4'],
 ];
 
-/* ── UTILITIES ── */
-function escapeHtml(str) {
-  return str.replace(/[&<>"']/g, c =>
-    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+/* ── HELPERS ── */
+function esc(s) {
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-
-function highlight(text, query) {
-  if (!query) return escapeHtml(text);
-  const escaped = escapeHtml(text);
-  const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
-  return escaped.replace(re, '<mark>$1</mark>');
+function highlight(text, q) {
+  if (!q) return esc(text);
+  return esc(text).replace(
+    new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'),
+    '<mark>$1</mark>'
+  );
 }
-
-function fileNumber(filename) {
+function fileNum(filename) {
   const m = filename.match(/^(\d+)\./);
   return m ? m[1].padStart(2,'0') : null;
 }
-
 function initials(name) {
-  return name.split(/\s+/).slice(0,2).map(w => w[0]).join('').toUpperCase() || '?';
+  return name.split(/[\s_-]+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase() || '?';
 }
+function transition(el, delay) {
+  el.style.transitionDelay = delay + 'ms';
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
+}
+
+/* ── IFRAME VIEWER ── */
+const viewer     = document.getElementById('viewer');
+const viewerBack = document.getElementById('viewer-back');
+const viewerIframe  = document.getElementById('viewer-iframe');
+const viewerTitle   = document.getElementById('viewer-title');
+const viewerFolder  = document.getElementById('viewer-folder');
+const viewerNewtab  = document.getElementById('viewer-newtab');
+
+function openViewer(href, name, folderName) {
+  viewerTitle.textContent  = name;
+  viewerFolder.textContent = folderName;
+  viewerNewtab.href        = href;
+  viewerIframe.src         = href;
+  viewer.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  history.pushState({ viewer: true, href, name, folderName }, '', '');
+}
+
+function closeViewer() {
+  viewer.classList.remove('open');
+  viewerIframe.src = '';
+  document.body.style.overflow = '';
+}
+
+viewerBack.addEventListener('click', () => {
+  closeViewer();
+  if (history.state && history.state.viewer) history.back();
+});
+
+window.addEventListener('popstate', e => {
+  if (viewer.classList.contains('open')) closeViewer();
+});
 
 /* ── RENDER CATEGORY GRID ── */
 function renderCategories(data) {
@@ -642,189 +613,163 @@ function renderCategories(data) {
 
   data.forEach((cat, ci) => {
     const allFiles = [
-      ...cat.files,
-      ...(cat.subfolders || []).flatMap(sf => sf.files)
+      ...cat.files.map(f => ({ ...f, folderLabel: cat.name })),
+      ...(cat.subfolders || []).flatMap(sf =>
+        sf.files.map(f => ({ ...f, folderLabel: cat.name + ' › ' + sf.name }))
+      )
     ];
     if (!allFiles.length) return;
 
-    const g = GRADIENTS[ci % GRADIENTS.length];
+    const [c1, c2] = GRADIENTS[ci % GRADIENTS.length];
+
     const card = document.createElement('div');
-    card.className = 'category-card fade-up';
-    card.style.transitionDelay = `${ci * 60}ms`;
+    card.className = 'category-card';
 
     const filesHtml = allFiles.map(f => {
-      const num = fileNumber(f.html.split('/').pop());
+      const num = fileNum(f.html.split('/').pop());
       return `
-        <a class="file-item" href="${f.html}">
-          ${num ? `<span class="file-num">${num}</span>` : '<i class="fas fa-file-alt"></i>'}
-          <span class="file-name">${escapeHtml(f.name)}</span>
-          <i class="fas fa-chevron-right" style="font-size:.7em;color:var(--muted)"></i>
-        </a>`;
+        <div class="file-item" data-href="${esc(f.html)}" data-name="${esc(f.name)}" data-folder="${esc(f.folderLabel)}">
+          ${num ? `<span class="file-num">${num}</span>` : '<i class="fas fa-file-alt" style="font-size:.8em;color:var(--accent)"></i>'}
+          <span class="file-name">${esc(f.name)}</span>
+          <i class="fas fa-chevron-right file-chevron"></i>
+        </div>`;
     }).join('');
 
     card.innerHTML = `
       <div class="category-header">
-        <div class="category-icon c${ci % 6}" style="background:linear-gradient(135deg,${g[0]},${g[1]})">
-          ${initials(cat.name)}
-        </div>
+        <div class="category-icon" style="background:linear-gradient(135deg,${c1},${c2})">${initials(cat.name)}</div>
         <div>
-          <div class="category-name">${escapeHtml(cat.name)}</div>
+          <div class="category-name">${esc(cat.name)}</div>
           <div class="category-count">${allFiles.length} lecture${allFiles.length !== 1 ? 's' : ''}</div>
         </div>
       </div>
-      <div class="file-list">${filesHtml}</div>
-    `;
+      <div class="file-list">${filesHtml}</div>`;
 
     grid.appendChild(card);
+    transition(card, ci * 70);
   });
 
-  // Trigger fade-up
-  requestAnimationFrame(() => {
-    document.querySelectorAll('.fade-up').forEach(el => {
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-      }, { threshold: 0.1 });
-      io.observe(el);
-    });
+  // Delegate click to open viewer
+  grid.addEventListener('click', e => {
+    const item = e.target.closest('.file-item');
+    if (!item) return;
+    openViewer(item.dataset.href, item.dataset.name, item.dataset.folder);
   });
 }
 
-/* ── FLAT FILE LIST (for search) ── */
+/* ── BUILD FLAT INDEX FOR SEARCH ── */
 function buildIndex(data) {
-  const index = [];
+  const idx = [];
   data.forEach((cat, ci) => {
-    const allFiles = [
-      ...cat.files.map(f => ({ ...f, cat: cat.name, ci })),
-      ...(cat.subfolders || []).flatMap((sf, si) =>
-        sf.files.map(f => ({ ...f, cat: cat.name + ' › ' + sf.name, ci }))
-      )
-    ];
-    allFiles.forEach(f => index.push(f));
+    cat.files.forEach(f => idx.push({ ...f, cat: cat.name, ci }));
+    (cat.subfolders || []).forEach(sf =>
+      sf.files.forEach(f => idx.push({ ...f, cat: cat.name + ' › ' + sf.name, ci }))
+    );
   });
-  return index;
+  return idx;
 }
 
 /* ── SEARCH ── */
-function doSearch(query, index) {
-  const q = query.trim().toLowerCase();
-  if (!q) return null;
-
-  const tokens = q.split(/\s+/).filter(Boolean);
-  return index.filter(f =>
-    tokens.every(t =>
-      f.name.toLowerCase().includes(t) ||
-      f.cat.toLowerCase().includes(t)
-    )
+function search(q, idx) {
+  const tokens = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  if (!tokens.length) return null;
+  return idx.filter(f =>
+    tokens.every(t => f.name.toLowerCase().includes(t) || f.cat.toLowerCase().includes(t))
   );
 }
 
 function renderResults(results, query) {
-  const list = document.getElementById('result-list');
+  const list   = document.getElementById('result-list');
   const header = document.getElementById('results-header');
-  const count = document.getElementById('search-count');
 
-  if (!results || !results.length) {
+  if (!results.length) {
     header.innerHTML = '';
-    count.textContent = '';
     list.innerHTML = `
       <div class="no-results">
         <i class="fas fa-search"></i>
-        <strong>No results for "${escapeHtml(query)}"</strong>
-        Try different keywords or browse the topics below.
+        <strong>No results for "${esc(query)}"</strong>
+        Try different keywords or browse the topics above.
       </div>`;
     return;
   }
 
-  header.innerHTML = `Found <strong>${results.length}</strong> result${results.length !== 1 ? 's' : ''} for "<strong>${escapeHtml(query)}</strong>"`;
-  count.textContent = '';
+  header.innerHTML = `Found <strong>${results.length}</strong> result${results.length !== 1 ? 's' : ''} for "<strong>${esc(query.trim())}</strong>"`;
 
-  list.innerHTML = results.map((f, i) => {
-    const g = GRADIENTS[f.ci % GRADIENTS.length];
-    const num = fileNumber(f.html.split('/').pop());
+  list.innerHTML = results.map(f => {
+    const [c1, c2] = GRADIENTS[f.ci % GRADIENTS.length];
+    const num = fileNum(f.html.split('/').pop());
     return `
-      <a class="result-item" href="${f.html}">
-        <div class="result-icon" style="background:linear-gradient(135deg,${g[0]},${g[1]})">
-          ${num ? num : '<i class="fas fa-file-alt"></i>'}
-        </div>
+      <div class="result-item" data-href="${esc(f.html)}" data-name="${esc(f.name)}" data-folder="${esc(f.cat)}">
+        <div class="result-icon" style="background:linear-gradient(135deg,${c1},${c2})">${num || '<i class="fas fa-file-alt"></i>'}</div>
         <div class="result-body">
-          <div class="result-folder">
-            <i class="fas fa-folder-open"></i>
-            ${escapeHtml(f.cat)}
-          </div>
+          <div class="result-folder"><i class="fas fa-folder-open"></i>${esc(f.cat)}</div>
           <div class="result-title">${highlight(f.name, query.trim())}</div>
-          <div class="result-open">
-            <i class="fas fa-external-link-alt"></i> Open lecture
-          </div>
+          <div class="result-open"><i class="fas fa-play-circle"></i>Open lecture</div>
         </div>
         <i class="fas fa-chevron-right result-arrow"></i>
-      </a>`;
+      </div>`;
   }).join('');
+
+  // Delegate click
+  list.addEventListener('click', e => {
+    const item = e.target.closest('.result-item');
+    if (!item) return;
+    openViewer(item.dataset.href, item.dataset.name, item.dataset.folder);
+  });
 }
 
 /* ── TOGGLE VIEWS ── */
 function showSearch() {
   document.getElementById('category-view').style.display = 'none';
-  document.getElementById('search-view').style.display = 'block';
+  document.getElementById('search-view').style.display   = 'block';
 }
 function showCategories() {
   document.getElementById('category-view').style.display = 'block';
-  document.getElementById('search-view').style.display = 'none';
-  document.getElementById('results-header').innerHTML = '';
-  document.getElementById('result-list').innerHTML = '';
-  document.getElementById('search-count').textContent = '';
+  document.getElementById('search-view').style.display   = 'none';
+  document.getElementById('results-header').innerHTML    = '';
+  document.getElementById('result-list').innerHTML       = '';
 }
 
 /* ── INIT ── */
 document.getElementById('year').textContent = new Date().getFullYear();
 
 let searchIndex = [];
-let debounceTimer;
+let debounce;
 
 fetch('index.json')
-  .then(r => { if (!r.ok) throw new Error('index.json not found'); return r.json(); })
+  .then(r => { if (!r.ok) throw new Error('not found'); return r.json(); })
   .then(data => {
-    // Build stats
     const totalFiles = data.reduce((n, cat) =>
-      n + cat.files.length + (cat.subfolders || []).reduce((m, sf) => m + sf.files.length, 0), 0);
+      n + cat.files.length + (cat.subfolders||[]).reduce((m,sf)=>m+sf.files.length,0), 0);
     document.getElementById('stat-folders').textContent = data.length;
-    document.getElementById('stat-files').textContent = totalFiles;
+    document.getElementById('stat-files').textContent   = totalFiles;
 
     renderCategories(data);
     searchIndex = buildIndex(data);
-
-    // Fade in stats bar
-    setTimeout(() => {
-      document.getElementById('stats-bar').classList.add('visible');
-    }, 100);
+    setTimeout(() => document.getElementById('stats-bar').classList.add('visible'), 120);
   })
-  .catch(err => {
+  .catch(() => {
     document.getElementById('category-grid').innerHTML = `
       <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted)">
         <i class="fas fa-exclamation-triangle" style="font-size:2em;color:var(--gold);display:block;margin-bottom:12px"></i>
         <strong style="color:var(--text)">Could not load course materials</strong><br>
-        <span style="font-size:.85em">Run <code>sync.ps1</code> to regenerate index.json, or check the console for errors.</span>
+        <span style="font-size:.85em">Run <code>sync.ps1</code> to regenerate index.json</span>
       </div>`;
-    console.error('index.json load error:', err);
   });
 
 /* ── SEARCH EVENTS ── */
-const input = document.getElementById('search-input');
+const input    = document.getElementById('search-input');
 const clearBtn = document.getElementById('search-clear');
 
 input.addEventListener('input', () => {
   const q = input.value;
   clearBtn.classList.toggle('visible', q.length > 0);
-
-  clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(() => {
-    if (!q.trim()) {
-      showCategories();
-      return;
-    }
-    const results = doSearch(q, searchIndex);
+  clearTimeout(debounce);
+  debounce = setTimeout(() => {
+    if (!q.trim()) { showCategories(); return; }
     showSearch();
-    renderResults(results, q);
-  }, 180);
+    renderResults(search(q, searchIndex), q);
+  }, 160);
 });
 
 clearBtn.addEventListener('click', () => {
@@ -836,16 +781,13 @@ clearBtn.addEventListener('click', () => {
 
 input.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
-    input.value = '';
-    clearBtn.classList.remove('visible');
-    showCategories();
-    input.blur();
+    if (input.value) { input.value = ''; clearBtn.classList.remove('visible'); showCategories(); }
+    else input.blur();
   }
 });
 
-/* ── KEYBOARD SHORTCUT: "/" to focus search ── */
 document.addEventListener('keydown', e => {
-  if (e.key === '/' && document.activeElement !== input) {
+  if (e.key === '/' && document.activeElement !== input && !viewer.classList.contains('open')) {
     e.preventDefault();
     input.focus();
     input.select();
