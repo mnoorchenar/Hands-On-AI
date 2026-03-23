@@ -11,6 +11,28 @@
     "subfolders": []
   },
   {
+    "name": "RNN",
+    "folder": "RNN",
+    "files": [
+      {
+        "name": "Sequence Modeling — Section 1 Recurrent Neural Networks (RNN)",
+        "html": "RNN/01. Sequence Modeling — Section 1 Recurrent Neural Networks (RNN).html"
+      }
+    ],
+    "subfolders": []
+  },
+  {
+    "name": "ViT",
+    "folder": "ViT",
+    "files": [
+      {
+        "name": "Parameter Count Calculations — Every Layer Explained",
+        "html": "ViT/01. Parameter Count Calculations — Every Layer Explained.html"
+      }
+    ],
+    "subfolders": []
+  },
+  {
     "name": "YOLO",
     "folder": "YOLO",
     "files": [
