@@ -31,7 +31,6 @@
   --search-bg:    #111d3c;
   --search-focus: rgba(17,29,60,0.95);
   --radius:       14px;
-  --toc-w:        282px;
 }
 
 /* ══════════════════════════════════════════
@@ -96,33 +95,6 @@ body {
   transform: rotate(22deg) scale(1.1);
 }
 
-/* ══════════════════════════════════════════
-   COPYRIGHT BANNER
-══════════════════════════════════════════ */
-.copyright-banner {
-  background: linear-gradient(90deg, rgba(239,68,68,.09), rgba(245,158,11,.07));
-  border-bottom: 1px solid rgba(239,68,68,.2);
-  padding: 9px 56px 9px 24px; /* right padding for theme btn */
-  display: flex; align-items: center; justify-content: center;
-  gap: 9px; font-size: .79em; color: #fca5a5;
-  text-align: center; line-height: 1.5;
-  transition: background .3s;
-}
-.copyright-banner.hidden { display: none; }
-.banner-close {
-  background: none; border: none; color: #fca5a5; cursor: pointer;
-  padding: 3px 7px; border-radius: 6px; font-size: .85em; flex-shrink: 0;
-  margin-left: 4px; transition: background .2s, color .2s; line-height: 1;
-}
-.banner-close:hover { background: rgba(239,68,68,.2); color: #fff; }
-[data-theme="light"] .banner-close { color: #c0392b; }
-[data-theme="light"] .copyright-banner {
-  background: linear-gradient(90deg, rgba(239,68,68,.07), rgba(245,158,11,.05));
-  color: #c0392b;
-  border-bottom-color: rgba(239,68,68,.15);
-}
-[data-theme="light"] .copyright-banner i { color: #e74c3c; }
-.copyright-banner i { color: #f87171; flex-shrink: 0; }
 
 /* ══════════════════════════════════════════
    HEADER
@@ -374,15 +346,6 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
 }
 .viewer-back:hover { background: rgba(79,142,247,.2); transform: translateX(-2px); }
 
-.viewer-toc-toggle {
-  display: flex; align-items: center; gap: 6px;
-  background: var(--glass); border: 1px solid var(--glass-border);
-  color: var(--muted); padding: 6px 12px; border-radius: 8px;
-  font-size: .78em; font-weight: 600; cursor: pointer;
-  transition: color .2s, border-color .2s, background .2s; font-family: inherit; flex-shrink: 0; white-space: nowrap;
-}
-.viewer-toc-toggle:hover { color: var(--text); border-color: rgba(79,142,247,.3); background: var(--glass-hover); }
-.viewer-toc-toggle.active { color: var(--accent); border-color: rgba(79,142,247,.4); background: rgba(79,142,247,.1); }
 
 .viewer-title {
   flex: 1; font-size: .85em; font-weight: 600; color: var(--text);
@@ -399,59 +362,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
 }
 .viewer-btn:hover { color: var(--text); border-color: rgba(79,142,247,.3); background: var(--glass-hover); }
 
-/* Body: TOC + iframe */
 .viewer-body { flex: 1; display: flex; overflow: hidden; position: relative; }
-
-/* ── TOC Sidebar ── */
-.toc-sidebar {
-  width: var(--toc-w); flex-shrink: 0;
-  background: var(--bg2);
-  border-right: 1px solid var(--glass-border);
-  display: flex; flex-direction: column; overflow: hidden;
-  transition: width .3s cubic-bezier(.22,1,.36,1), opacity .3s, background .3s, border-color .3s;
-}
-.toc-sidebar.hidden { width: 0; opacity: 0; pointer-events: none; }
-
-.toc-header { padding: 14px 16px 10px; border-bottom: 1px solid var(--glass-border); flex-shrink: 0; }
-.toc-label {
-  font-size: .72em; font-weight: 700; color: var(--accent);
-  text-transform: uppercase; letter-spacing: .8px;
-  display: flex; align-items: center; gap: 6px;
-}
-.toc-progress { margin-top: 8px; height: 3px; background: var(--glass-border); border-radius: 2px; overflow: hidden; }
-.toc-progress-bar {
-  height: 100%; width: 0%;
-  background: linear-gradient(90deg, var(--accent), var(--teal)); transition: width .2s;
-}
-
-.toc-scroll { flex: 1; overflow-y: auto; padding: 8px 0 16px; }
-.toc-scroll::-webkit-scrollbar { width: 4px; }
-.toc-scroll::-webkit-scrollbar-track { background: transparent; }
-.toc-scroll::-webkit-scrollbar-thumb { background: rgba(79,142,247,.3); border-radius: 2px; }
-
-.toc-empty { padding: 24px 16px; text-align: center; color: var(--muted); font-size: .8em; }
-.toc-empty i { display: block; font-size: 1.6em; margin-bottom: 8px; opacity: .4; }
-
-.toc-item {
-  display: flex; align-items: flex-start;
-  padding: 6px 16px; cursor: pointer;
-  font-size: .8em; color: var(--muted); line-height: 1.4;
-  transition: color .15s, background .15s, border-color .15s;
-  border-left: 2px solid transparent; position: relative;
-}
-.toc-item:hover { color: var(--text); background: var(--glass); }
-.toc-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(79,142,247,.07); }
-.toc-item.active .toc-dot { background: var(--accent); }
-.toc-item[data-level="1"] { padding-left: 16px; font-weight: 700; font-size: .83em; }
-.toc-item[data-level="2"] { padding-left: 26px; }
-.toc-item[data-level="3"] { padding-left: 38px; font-size: .77em; }
-.toc-item[data-level="4"] { padding-left: 50px; font-size: .75em; opacity: .8; }
-.toc-dot {
-  width: 5px; height: 5px; border-radius: 50%; background: var(--glass-border);
-  flex-shrink: 0; margin-top: 6px; margin-right: 8px; transition: background .15s;
-}
-.toc-item:hover .toc-dot { background: var(--muted); }
-.toc-text { flex: 1; }
 
 /* ── iframe area ── */
 .viewer-iframe-wrap { flex: 1; position: relative; overflow: hidden; }
@@ -485,23 +396,23 @@ footer {
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px;
 }
 .footer-copy { color: var(--muted); font-size: .75em; }
+.footer-notice {
+  margin-top: 10px; font-size: .74em; color: #fca5a5; line-height: 1.5;
+  display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap;
+}
+.footer-notice i { color: #f87171; flex-shrink: 0; }
+[data-theme="light"] .footer-notice { color: #c0392b; }
+[data-theme="light"] .footer-notice i { color: #e74c3c; }
 
 /* ══════════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════════ */
 @media (max-width: 768px) {
-  :root { --toc-w: 240px; }
   .viewer-folder { display: none; }
 }
 @media (max-width: 540px) {
   .category-grid { grid-template-columns: 1fr; }
   .viewer-btn span { display: none; }
-}
-@media (max-width: 480px) {
-  :root { --toc-w: 100vw; }
-  .toc-sidebar:not(.hidden) {
-    position: absolute; inset: 0; z-index: 10; width: 100vw !important;
-  }
 }
 </style>
 </head>
@@ -512,16 +423,6 @@ footer {
   <i class="fas fa-sun" id="theme-icon"></i>
 </button>
 
-<!-- COPYRIGHT BANNER -->
-<div class="copyright-banner" id="copyright-banner">
-  <i class="fas fa-lock"></i>
-  <span>
-    These materials are strictly reserved for students enrolled in courses taught by
-    <strong>Prof. Mohammad Noorchenarboo</strong> at <strong>Fanshawe College</strong>.
-    Any distribution or use outside of these courses is strictly prohibited.
-  </span>
-  <button class="banner-close" id="banner-close" aria-label="Dismiss notice"><i class="fas fa-times"></i></button>
-</div>
 
 <!-- HEADER -->
 <header>
@@ -560,13 +461,13 @@ footer {
 <footer>
   <div class="footer-logo">Hands-On AI</div>
   <div class="footer-copy">&copy; <span id="year"></span> Mohammad Noorchenarboo &mdash; Fanshawe College. All rights reserved.</div>
+  <div class="footer-notice"><i class="fas fa-lock"></i> These materials are strictly reserved for students enrolled in courses taught by <strong>Prof. Mohammad Noorchenarboo</strong> at <strong>Fanshawe College</strong>. Any distribution or use outside of these courses is strictly prohibited.</div>
 </footer>
 
 <!-- IFRAME VIEWER -->
 <div id="viewer">
   <div class="viewer-bar">
     <button class="viewer-back" id="viewer-back"><i class="fas fa-arrow-left"></i> Back</button>
-    <button class="viewer-toc-toggle active" id="toc-toggle"><i class="fas fa-list"></i> Contents</button>
     <div class="viewer-title" id="viewer-title"></div>
     <div class="viewer-folder" id="viewer-folder"></div>
     <a class="viewer-btn" id="viewer-newtab" href="#" target="_blank" rel="noopener">
@@ -574,15 +475,6 @@ footer {
     </a>
   </div>
   <div class="viewer-body">
-    <div class="toc-sidebar" id="toc-sidebar">
-      <div class="toc-header">
-        <div class="toc-label"><i class="fas fa-list-ul"></i>Table of Contents</div>
-        <div class="toc-progress"><div class="toc-progress-bar" id="toc-progress-bar"></div></div>
-      </div>
-      <div class="toc-scroll" id="toc-scroll">
-        <div class="toc-empty"><i class="fas fa-spinner fa-spin"></i>Loading…</div>
-      </div>
-    </div>
     <div class="viewer-iframe-wrap">
       <div class="viewer-loading" id="viewer-loading">
         <div class="spinner"></div>
@@ -594,16 +486,6 @@ footer {
 </div>
 
 <script>
-/* ══════════════════════════════════════
-   BANNER DISMISS
-══════════════════════════════════════ */
-const banner = document.getElementById('copyright-banner');
-if (localStorage.getItem('banner-dismissed') === '1') banner.classList.add('hidden');
-document.getElementById('banner-close').addEventListener('click', () => {
-  banner.classList.add('hidden');
-  localStorage.setItem('banner-dismissed', '1');
-});
-
 /* ══════════════════════════════════════
    THEME
 ══════════════════════════════════════ */
@@ -660,107 +542,6 @@ function initials(name) {
   return name.split(/[\s_-]+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase() || '?';
 }
 
-/* ══════════════════════════════════════
-   TABLE OF CONTENTS
-══════════════════════════════════════ */
-let tocItems     = [];
-let activeIndex  = -1;
-let scrollStop   = null;
-
-function buildTOC(iframeEl) {
-  const tocScroll = document.getElementById('toc-scroll');
-  tocScroll.innerHTML = '<div class="toc-empty"><i class="fas fa-spinner fa-spin"></i>Loading…</div>';
-  tocItems = []; activeIndex = -1;
-  document.getElementById('toc-progress-bar').style.width = '0%';
-
-  let doc;
-  try { doc = iframeEl.contentDocument || iframeEl.contentWindow.document; }
-  catch(e) {
-    tocScroll.innerHTML = '<div class="toc-empty"><i class="fas fa-lock"></i>Cannot read content<br><small>(cross-origin restriction)</small></div>';
-    return;
-  }
-
-  const headings = Array.from(doc.querySelectorAll('h1,h2,h3,h4'));
-  if (!headings.length) {
-    tocScroll.innerHTML = '<div class="toc-empty"><i class="fas fa-align-left"></i>No headings found</div>';
-    return;
-  }
-
-  headings.forEach((h, i) => { if (!h.id) h.id = 'toc-h-' + i; });
-
-  const frag = document.createDocumentFragment();
-  headings.forEach((h, i) => {
-    const level = parseInt(h.tagName[1]);
-    const text  = h.textContent.trim();
-    if (!text) return;
-    const div = document.createElement('div');
-    div.className = 'toc-item';
-    div.dataset.level = level;
-    div.innerHTML = `<span class="toc-dot"></span><span class="toc-text">${esc(text)}</span>`;
-    div.addEventListener('click', () => jumpTo(iframeEl, h, i));
-    frag.appendChild(div);
-    tocItems.push({ el: div, heading: h });
-  });
-
-  tocScroll.innerHTML = '';
-  tocScroll.appendChild(frag);
-
-  if (scrollStop) scrollStop();
-  const win = iframeEl.contentWindow;
-  const onScroll = () => { updateActive(iframeEl); updateProgress(iframeEl); };
-  win.addEventListener('scroll', onScroll, { passive: true });
-  scrollStop = () => win.removeEventListener('scroll', onScroll);
-  updateActive(iframeEl);
-  updateProgress(iframeEl);
-}
-
-function jumpTo(iframeEl, heading, idx) {
-  try {
-    const win = iframeEl.contentWindow;
-    const top = heading.getBoundingClientRect().top + win.scrollY - 80;
-    win.scrollTo({ top, behavior: 'smooth' });
-  } catch(e) {}
-  setActive(idx);
-}
-
-function updateActive(iframeEl) {
-  if (!tocItems.length) return;
-  try {
-    const scrollY = iframeEl.contentWindow.scrollY + 120;
-    let idx = 0;
-    for (let i = 0; i < tocItems.length; i++) {
-      const top = tocItems[i].heading.getBoundingClientRect().top + iframeEl.contentWindow.scrollY;
-      if (top <= scrollY) idx = i; else break;
-    }
-    setActive(idx);
-  } catch(e) {}
-}
-
-function setActive(idx) {
-  if (idx === activeIndex) return;
-  activeIndex = idx;
-  tocItems.forEach((t, i) => t.el.classList.toggle('active', i === idx));
-  if (tocItems[idx]) {
-    const item  = tocItems[idx].el;
-    const panel = document.getElementById('toc-scroll');
-    const iTop  = item.offsetTop;
-    const iBot  = iTop + item.offsetHeight;
-    const pTop  = panel.scrollTop;
-    const pBot  = pTop + panel.clientHeight;
-    if (iTop < pTop + 40)      panel.scrollTo({ top: iTop - 40, behavior: 'smooth' });
-    else if (iBot > pBot - 40) panel.scrollTo({ top: iBot - panel.clientHeight + 40, behavior: 'smooth' });
-  }
-}
-
-function updateProgress(iframeEl) {
-  try {
-    const win = iframeEl.contentWindow;
-    const doc = iframeEl.contentDocument;
-    const max = doc.documentElement.scrollHeight - win.innerHeight;
-    const pct = max > 0 ? Math.min(100, (win.scrollY / max) * 100) : 0;
-    document.getElementById('toc-progress-bar').style.width = pct + '%';
-  } catch(e) {}
-}
 
 /* ══════════════════════════════════════
    VIEWER
@@ -772,17 +553,12 @@ const viewerTitle   = document.getElementById('viewer-title');
 const viewerFolder  = document.getElementById('viewer-folder');
 const viewerNewtab  = document.getElementById('viewer-newtab');
 const viewerLoading = document.getElementById('viewer-loading');
-const tocSidebar    = document.getElementById('toc-sidebar');
-const tocToggleBtn  = document.getElementById('toc-toggle');
-let tocVisible = true;
 
 function openViewer(href, name, folderName) {
   viewerTitle.textContent  = name;
   viewerFolder.textContent = folderName;
   viewerNewtab.href        = href;
   viewerLoading.classList.remove('hidden');
-  document.getElementById('toc-scroll').innerHTML =
-    '<div class="toc-empty"><i class="fas fa-spinner fa-spin"></i>Loading…</div>';
   viewerIframe.src = href;
   viewer.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -793,20 +569,11 @@ function closeViewer() {
   viewer.classList.remove('open');
   viewerIframe.src = '';
   document.body.style.overflow = '';
-  if (scrollStop) { scrollStop(); scrollStop = null; }
 }
 
-viewerIframe.addEventListener('load', () => {
-  viewerLoading.classList.add('hidden');
-  if (viewerIframe.src && viewerIframe.src !== window.location.href) buildTOC(viewerIframe);
-});
+viewerIframe.addEventListener('load', () => { viewerLoading.classList.add('hidden'); });
 viewerBack.addEventListener('click', () => { closeViewer(); if (history.state?.viewer) history.back(); });
 window.addEventListener('popstate', () => { if (viewer.classList.contains('open')) closeViewer(); });
-tocToggleBtn.addEventListener('click', () => {
-  tocVisible = !tocVisible;
-  tocSidebar.classList.toggle('hidden', !tocVisible);
-  tocToggleBtn.classList.toggle('active', tocVisible);
-});
 
 /* ══════════════════════════════════════
    RENDER CATEGORIES
