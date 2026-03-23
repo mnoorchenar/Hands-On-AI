@@ -255,8 +255,17 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
 
 .category-header {
   padding: 18px 20px 14px; display: flex; align-items: center; gap: 12px;
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 1px solid transparent;
+  cursor: pointer; user-select: none;
+  transition: background .2s;
 }
+.category-card.open .category-header { border-bottom-color: var(--glass-border); }
+.category-header:hover { background: rgba(79,142,247,.05); }
+.category-toggle {
+  margin-left: auto; color: var(--muted); font-size: .85em; flex-shrink: 0;
+  transition: transform .35s cubic-bezier(.22,1,.36,1), color .2s;
+}
+.category-card.open .category-toggle { transform: rotate(180deg); color: var(--accent); }
 .category-icon {
   width: 42px; height: 42px; border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
@@ -265,7 +274,8 @@ main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
 .category-name { font-size: 1em; font-weight: 800; color: var(--text-strong); }
 .category-count { font-size: .74em; color: var(--muted); margin-top: 2px; }
 
-.file-list { padding: 6px 0; }
+.file-list { padding: 0; max-height: 0; overflow: hidden; transition: max-height .35s cubic-bezier(.22,1,.36,1), padding .2s; }
+.file-list.open { padding: 6px 0; max-height: 2000px; }
 .file-item {
   display: flex; align-items: center; gap: 10px;
   padding: 9px 20px; cursor: pointer; color: var(--muted);
@@ -801,6 +811,7 @@ function renderCategories(data) {
           <div class="category-name">${esc(cat.name)}</div>
           <div class="category-count">${allFiles.length} lecture${allFiles.length!==1?'s':''}</div>
         </div>
+        <i class="fas fa-chevron-down category-toggle"></i>
       </div>
       <div class="file-list">${allFiles.map(f => {
         const num = fileNum(f.html.split('/').pop());
@@ -810,6 +821,11 @@ function renderCategories(data) {
           <i class="fas fa-chevron-right file-chevron"></i>
         </div>`;
       }).join('')}</div>`;
+    card.querySelector('.category-header').addEventListener('click', () => {
+      const fileList = card.querySelector('.file-list');
+      const isOpen = fileList.classList.toggle('open');
+      card.classList.toggle('open', isOpen);
+    });
     grid.appendChild(card);
     requestAnimationFrame(() => requestAnimationFrame(() => {
       card.style.transitionDelay = (ci * 70) + 'ms';
